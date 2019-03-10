@@ -22,6 +22,7 @@ namespace Identity.API
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config)=>{
                     config.SetBasePath(Directory.GetCurrentDirectory());
+                    //config.AddJsonFile("Configurations/mongoSettings.json", optional:false, reloadOnChange:true);
                     config.AddJsonFile("Configurations/mongoSettings.json", optional:false, reloadOnChange:true);
                     //config.AddInMemoryCollection();
                     config.AddCommandLine(args);

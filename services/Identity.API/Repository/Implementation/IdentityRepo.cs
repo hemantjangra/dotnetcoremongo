@@ -1,4 +1,3 @@
-
 namespace Identity.API.Repository.Implementation
 {
     using Identity.API.Models.Implementation;
@@ -13,13 +12,13 @@ namespace Identity.API.Repository.Implementation
         private IMongoDatabase _database;
         private IMongoCollection<Users> _userCollection;
 
-        private readonly MongoConfig _mongoCofig;
+        private readonly MongoConfig _mongoConf = new MongoConfig();
 
-        public IdentityRepo(IOptionsMonitor<MongoConfig> mongoConf){
-            _client = new MongoClient();
-            _database = _client.GetDatabase("dotnetmicroservice");
-            _userCollection = _database.GetCollection<Users>("Users");
-            _mongoCofig = mongoConf.CurrentValue;
+        public IdentityRepo(IOptionsSnapshot<MongoConfig> mongoConf){
+            _mongoConf = mongoConf.Value;
+            _client = new MongoClient(_mongoConf.MongoConnection);
+            _database = _client.GetDatabase(_mongoConf.MongoUsersDataBase);
+            _userCollection = _database.GetCollection<Users>(_mongoConf.MongoUsersCollection);
         }
         public Users CreateUser(Users user)
         {

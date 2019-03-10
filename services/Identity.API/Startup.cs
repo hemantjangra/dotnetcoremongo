@@ -33,7 +33,8 @@ namespace Identity.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            services.AddOptions();
+            services.Configure<MongoConfig>(Configuration.GetSection("MongoProps"));
             IntegrateSimpleInjector(services);
         }
 
@@ -44,6 +45,7 @@ namespace Identity.API
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(container));
             services.AddSingleton<IViewComponentActivator>(new SimpleInjectorViewComponentActivator(container));
+
 
             services.EnableSimpleInjectorCrossWiring(container);
             services.UseSimpleInjectorAspNetRequestScoping(container);

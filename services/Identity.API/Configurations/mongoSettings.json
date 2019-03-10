@@ -1,3 +1,7 @@
 {
-
+  "MongoProps":{
+    "MongoConnection":"mongodb://localhost:27017",
+    "MongoUsersDataBase": "dotnetmicroservice",
+    "MongoUsersCollection": "Users"
+  }
 }
